@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import NavLink from "./navlink";
 
-export const Navbar: FC = () => {
+export const Navbar = () => {
   const [dropdownToggle, setDropdownToggle] = useState(false);
 
 const toggleDropdown = () => {
