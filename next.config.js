@@ -20,7 +20,12 @@ module.exports = {
     measurementId: process.env.measurementId,
     apiUrl: process.env.apiUrl
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+    
     config.experiments = { topLevelAwait: true };
     config.experiments.layers = true;
 

@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { ReactElement, useState } from "react";
 import Layout from "../components/layout";
-import { LoginCard } from "../components/signCards";
+import { LoginCard, RegisterCard } from "../components/signCards";
 import { NextPageWithLayout } from "./_app";
 
 const Page: NextPageWithLayout = () => {
@@ -23,7 +23,20 @@ const Page: NextPageWithLayout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex justify-center items-center min-h-screen">
-        <LoginCard setShowRegisterCard={setShowRegisterCard} setShowForgotPassword={setShowForgotPassword} setAuthProvider={setAuthProvider} />
+        {showRegisterCard ? (
+          <RegisterCard
+            setShowRegisterCard={setShowRegisterCard}
+            setShowForgotPassword={setShowForgotPassword}
+            setAuthProvider={setAuthProvider}
+            authProvider={authProvider}
+          />
+        ) : (
+          <LoginCard
+            setShowRegisterCard={setShowRegisterCard}
+            setShowForgotPassword={setShowForgotPassword}
+            setAuthProvider={setAuthProvider}
+          />
+        )}
       </main>
     </>
   );
