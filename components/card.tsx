@@ -8,14 +8,13 @@ import { useEffect, useState } from "react";
 import { Course } from "../types/course";
 
 type Props = {
-    data: Course;
-}
+  data: Course;
+};
 
-const Card = ({data}: Props) => {
-  
+const Card = ({ data }: Props) => {
   const formatNumberToCompact = (number: number) => {
-    return Intl.NumberFormat('pl', { notation: 'compact' }).format(number)
-  }
+    return Intl.NumberFormat("pl", { notation: "compact" }).format(number);
+  };
 
   return (
     <div
