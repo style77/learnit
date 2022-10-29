@@ -25,8 +25,8 @@ const Card = ({data}: Props) => {
       <div className="flex flex-col p-4 h-full">
         <div className="flex flex-col">
           <div className="flex flex-col w-full text-start gap-2">
-            <div className="flex flex-row justify-start gap-2 border-b-[1px] border-gray-400 w-full py-1">
-              <h1 className="text-xl font-bold">{data.title}</h1>
+            <div className="flex flex-row justify-start items-center gap-2 border-b-[1px] border-gray-400 w-full py-1">
+              <h1 className="text-3xl font-bold">{data.title}</h1>
               <Image
                 src={data.image}
                 alt={`${data.language} logo`}
@@ -35,7 +35,7 @@ const Card = ({data}: Props) => {
                 data-tba={data.TBA}
                 className="object-contain rounded-md data-[TBA=true]:opacity-50 group-hover:opacity-100 transition"
               />
-              {data.TBA ? <span className="ml-4">Już wkrótce</span> : null}
+              {data.TBA ? <span className="ml-4">Wkrótce!</span> : null}
             </div>
             <span className="text-sm font-semibold">{data.description}</span>
             <div className="mt-10">

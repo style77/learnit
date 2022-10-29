@@ -33,7 +33,7 @@ const Page: NextPageWithLayout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="items-center justify-center py-32 flex">
-        <div className="grid grid-cols-3 gap-6 mx-20">
+        <div className="flex flex-col lg:grid grid-cols-3 gap-6 mx-20">
           {loading ? (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <Progress value={progress}>
