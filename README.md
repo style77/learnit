@@ -18,4 +18,6 @@ LearnIT is a platform that allows everyone to learn coding. It is a free and ope
 
 ^ These are just some thoughts, we can discuss it later. They doesn't really matter at that stage of development. I just wanted to write them down somewhere. `by @style77`
 
+
 - We need to consider if card with course should open modal with course description or redirect to course page. (I think that it should open modal `by @style77`)
+^ same with login button - should it redirect to login page or open modal with login form? (I think that it should open modal `by @style77`)
