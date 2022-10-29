@@ -24,9 +24,9 @@ const toggleDropdown = () => {
           </a>
           <div className="flex md:order-2">
             <a
-                href="/login"
+              href="/login"
               type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 transition focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
+              className="text-white font-normal bg-blue-700 hover:bg-blue-800 transition focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
             >
               Zaloguj się
             </a>
@@ -66,7 +66,7 @@ const toggleDropdown = () => {
                   href="/courses"
                   activeClassName="bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:p-0"
                 >
-                  <span className="block py-2 pr-4 pl-3 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
+                  <span className="block font-normal py-2 pr-4 pl-3 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
                     Kursy
                   </span>
                 </NavLink>
@@ -76,7 +76,7 @@ const toggleDropdown = () => {
                   href="/faq"
                   activeClassName="bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:p-0"
                 >
-                  <span className="block py-2 pr-4 pl-3 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
+                  <span className="block font-normal py-2 pr-4 pl-3 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
                     FAQ
                   </span>
                 </NavLink>

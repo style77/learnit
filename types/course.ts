@@ -9,4 +9,5 @@ export interface Course {
     source: string;
     tags: string[];
     TBA: boolean;
+    reposCount: number;
 }

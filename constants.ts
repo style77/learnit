@@ -30,6 +30,7 @@ export const courses: Course[] = [
         tags: ['JavaScript', 'ECMAScript', 'JS'],
         source: 'data/courses/javascript',
         TBA: false,
+        reposCount: 17115527
     },
     {
         title: programmingLanguages.typescript,
@@ -40,6 +41,7 @@ export const courses: Course[] = [
         tags: ['TypeScript', 'TS', 'JS'],
         source: 'data/courses/typescript',
         TBA: false,
+        reposCount: 3514013,
     },
     {
         title: programmingLanguages.python,
@@ -50,6 +52,7 @@ export const courses: Course[] = [
         tags: ['Python', 'Py'],
         source: 'data/courses/python',
         TBA: true,
+        reposCount: 9564408,
     },
     {
         title: programmingLanguages.java,
@@ -60,6 +63,7 @@ export const courses: Course[] = [
         tags: ['Java', 'JVM'],
         source: 'data/courses/java',
         TBA: true,
+        reposCount: 11021787
     },
     {
         title: programmingLanguages.kotlin,
@@ -70,6 +74,7 @@ export const courses: Course[] = [
         tags: ['Kotlin', 'Kt'],
         source: 'data/courses/kotlin',
         TBA: true,
+        reposCount: 954864
     },
     {
         title: programmingLanguages.csharp,
@@ -80,6 +85,7 @@ export const courses: Course[] = [
         tags: ['C#', 'CSharp', 'C-Sharp', 'C Sharp'],
         source: 'data/courses/csharp',
         TBA: true,
+        reposCount: 3805246
     },
     {
         title: programmingLanguages.go,
@@ -90,6 +96,7 @@ export const courses: Course[] = [
         tags: ['Go', 'Golang'],
         source: 'data/courses/go',
         TBA: false,
+        reposCount: 1124204
     },
     {
         title: programmingLanguages.php,
@@ -100,6 +107,7 @@ export const courses: Course[] = [
         tags: ['PHP'],
         source: 'data/courses/php',
         TBA: true,
+        reposCount: 3390986
     },
     {
         title: programmingLanguages.ruby,
@@ -110,6 +118,7 @@ export const courses: Course[] = [
         tags: ['Ruby', 'Rb'],
         source: 'data/courses/ruby',
         TBA: true,
+        reposCount: 2679876
     }
 ]
 
