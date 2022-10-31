@@ -79,7 +79,10 @@ export const Navbar = () => {
                               href="/profile"
                               activeClassName="block py-2 px-4 text-sm text-blue-700 bg-gray-100"
                             >
-                              <span className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+                              <span
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => setUserDropdownToggle(false)}
+                              >
                                 Profil
                               </span>
                             </NavLink>
@@ -89,7 +92,10 @@ export const Navbar = () => {
                               href="/profile/courses"
                               activeClassName="block py-2 px-4 text-sm text-blue-700 bg-gray-100"
                             >
-                              <span className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+                              <span
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => setUserDropdownToggle(false)}
+                              >
                                 Kursy
                               </span>
                             </NavLink>
@@ -99,7 +105,10 @@ export const Navbar = () => {
                               href="/profile/settings"
                               activeClassName="block py-2 px-4 text-sm text-blue-700 bg-gray-100"
                             >
-                              <span className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+                              <span
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => setUserDropdownToggle(false)}
+                              >
                                 Ustawienia
                               </span>
                             </NavLink>
@@ -108,7 +117,7 @@ export const Navbar = () => {
                             <a
                               href="#"
                               className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
-                              onClick={() => auth.signOut()}
+                              onClick={() => {auth.signOut(); setUserDropdownToggle(false)}}
                             >
                               Wyloguj się
                             </a>

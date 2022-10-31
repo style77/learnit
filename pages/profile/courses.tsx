@@ -43,19 +43,20 @@ const Page: NextPageWithLayout = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!isLoggedIn && (
-        <div className="flex flex-col justify-center items-center w-full">
-          <h1 className="text-4xl font-bold text-gray-800">
-            Zaloguj się, aby to wyświetlić
-          </h1>
-        </div>
-      )}
-      <main className="flex min-h-screen">
-        <div className="flex flex-col gap-4 mt-20 ml-4">
+      <main className="flex flex-col my-[5.5rem] mx-4 min-h-screen">
+        {!isLoggedIn ? (
+          <div className="flex flex-col justify-center items-center w-full">
+            <h1 className="text-4xl font-bold text-gray-800">
+              Zaloguj się, aby to wyświetlić
+            </h1>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
             {userCourses.map((course) => (
-                <Course course={course} />
+              <Course course={course} />
             ))}
-        </div>
+          </div>
+        )}
       </main>
     </>
   );

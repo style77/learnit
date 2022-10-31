@@ -1,7 +1,9 @@
 import React from "react";
 import { styled, keyframes } from "@stitches/react";
-import { violet, blackA, red, mauve } from "@radix-ui/colors";
-import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import { violet, blackA, red, mauve, green } from "@radix-ui/colors";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+import { FiX } from "react-icons/fi";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
@@ -13,8 +15,9 @@ const contentShow = keyframes({
   "100%": { opacity: 1, transform: "translate(-50%, -50%) scale(1)" },
 });
 
-const StyledOverlay = styled(AlertDialogPrimitive.Overlay, {
+const StyledOverlay = styled(DialogPrimitive.Overlay, {
   backgroundColor: blackA.blackA9,
+  zIndex: 9998,
   position: "fixed",
   inset: 0,
   "@media (prefers-reduced-motion: no-preference)": {
@@ -22,9 +25,10 @@ const StyledOverlay = styled(AlertDialogPrimitive.Overlay, {
   },
 });
 
-const StyledContent = styled(AlertDialogPrimitive.Content, {
+const StyledContent = styled(DialogPrimitive.Content, {
   backgroundColor: "white",
   borderRadius: 6,
+  zIndex: 9999,
   boxShadow:
     "hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px",
   position: "fixed",
@@ -43,25 +47,26 @@ const StyledContent = styled(AlertDialogPrimitive.Content, {
 
 type ContentProps = {
     children: React.ReactNode;
+    ref: React.RefObject<HTMLDivElement>;
 }
 
-function Content({ children, ...props }: ContentProps) {
+function Content({ children, ref, ...props }: ContentProps) {
   return (
-    <AlertDialogPrimitive.Portal>
-      <StyledOverlay />
+    <DialogPrimitive.Portal>
+      <StyledOverlay ref={ref} />
       <StyledContent {...props}>{children}</StyledContent>
-    </AlertDialogPrimitive.Portal>
+    </DialogPrimitive.Portal>
   );
 }
 
-const StyledTitle = styled(AlertDialogPrimitive.Title, {
+const StyledTitle = styled(DialogPrimitive.Title, {
   margin: 0,
   color: mauve.mauve12,
   fontSize: 17,
   fontWeight: 500,
 });
 
-const StyledDescription = styled(AlertDialogPrimitive.Description, {
+const StyledDescription = styled(DialogPrimitive.Description, {
   marginBottom: 20,
   color: mauve.mauve11,
   fontSize: 15,
@@ -69,13 +74,12 @@ const StyledDescription = styled(AlertDialogPrimitive.Description, {
 });
 
 // Exports
-export const AlertDialog = AlertDialogPrimitive.Root;
-export const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
-export const AlertDialogContent = Content;
-export const AlertDialogTitle = StyledTitle;
-export const AlertDialogDescription = StyledDescription;
-export const AlertDialogAction = AlertDialogPrimitive.Action;
-export const AlertDialogCancel = AlertDialogPrimitive.Cancel;
+export const Dialog = DialogPrimitive.Root;
+export const DialogTrigger = DialogPrimitive.Trigger;
+export const DialogContent = Content;
+export const DialogTitle = StyledTitle;
+export const DialogDescription = StyledDescription;
+export const DialogClose = DialogPrimitive.Close;
 
 // Your app...
 const Flex = styled("div", { display: "flex" });
@@ -102,17 +106,11 @@ const Button = styled("button", {
         "&:hover": { backgroundColor: mauve.mauve3 },
         "&:focus": { boxShadow: `0 0 0 2px black` },
       },
-      red: {
-        backgroundColor: red.red4,
-        color: red.red11,
-        "&:hover": { backgroundColor: red.red5 },
-        "&:focus": { boxShadow: `0 0 0 2px ${red.red7}` },
-      },
-      mauve: {
-        backgroundColor: mauve.mauve4,
-        color: mauve.mauve11,
-        "&:hover": { backgroundColor: mauve.mauve5 },
-        "&:focus": { boxShadow: `0 0 0 2px ${mauve.mauve7}` },
+      green: {
+        backgroundColor: green.green4,
+        color: green.green11,
+        "&:hover": { backgroundColor: green.green5 },
+        "&:focus": { boxShadow: `0 0 0 2px ${green.green7}` },
       },
     },
   },
@@ -120,6 +118,25 @@ const Button = styled("button", {
   defaultVariants: {
     variant: "violet",
   },
+});
+
+const IconButton = styled("button", {
+  all: "unset",
+  fontFamily: "inherit",
+  borderRadius: "100%",
+  height: 25,
+  width: 25,
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: violet.violet11,
+  position: "absolute",
+  top: 10,
+  right: 10,
+  cursor: "pointer",
+
+  "&:hover": { backgroundColor: violet.violet4 },
+  "&:focus": { boxShadow: `0 0 0 2px ${violet.violet7}` },
 });
 
 type Props = {
@@ -138,38 +155,43 @@ const StartCourseDialog = ({
   onCancel,
 }: Props) => {
   const [open, setOpen] = React.useState(false);
+  const modalRef = React.useRef<any | null>(null)
+
+  useOnClickOutside(modalRef, () => setOpen(false));
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Button>
-          <span className="text-gray-600 hover:text-gray-800 transition font-semibold cursor-pointer">
-            Rozpocznij kurs
-          </span>
-        </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogTitle>
-          Czy chcesz rozpocząć kurs: {title} ({lessonsCount} lekcji)?
-        </AlertDialogTitle>
-        <AlertDialogDescription>
-          <p className="font-semibold mt-2">Opis:</p>
-          <p>{description}</p>
-        </AlertDialogDescription>
-        <Flex css={{ justifyContent: "flex-end" }}>
-          <AlertDialogCancel asChild>
-            <Button variant="red" css={{ marginRight: 25 }}>
-              Anuluj
-            </Button>
-          </AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button onClick={() => onConfirm()}>
-              <button className="text-gray-800">Rozpocznij kurs</button>
-            </Button>
-          </AlertDialogAction>
-        </Flex>
-      </AlertDialogContent>
-    </AlertDialog>
+    <div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button>
+            <span className="text-gray-600 hover:text-gray-800 transition font-semibold cursor-pointer">
+              Rozpocznij kurs
+            </span>
+          </Button>
+        </DialogTrigger>
+        <DialogContent ref={modalRef}>
+          <DialogTitle>
+            Czy chcesz rozpocząć kurs: {title} ({lessonsCount} lekcji)?
+          </DialogTitle>
+          <DialogDescription>
+            <p className="font-semibold mt-2">Opis:</p>
+            <p>{description}</p>
+          </DialogDescription>
+          <Flex css={{ justifyContent: "flex-end" }}>
+            <DialogClose asChild>
+              <Button variant="green" onClick={() => onConfirm()}>
+                <button className="text-gray-800">Rozpocznij kurs</button>
+              </Button>
+            </DialogClose>
+          </Flex>
+          <DialogClose asChild>
+            <IconButton aria-label="Close">
+              <FiX />
+            </IconButton>
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
