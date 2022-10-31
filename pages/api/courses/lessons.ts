@@ -34,6 +34,19 @@ export const getCountOfFilesInDir = async (dir: string) => {
   return files.length;
 };
 
+export const getCountOfLessonsLocally = async (language: string) => {
+  // params:
+  // language - language of course
+
+  const localPath = path.join(
+    process.cwd(),
+    "data",
+    "courses",
+    language as string
+  );
+  return await getCountOfFilesInDir(localPath);
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<LessonsResData>

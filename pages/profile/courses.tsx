@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ReactElement, useEffect, useState } from "react";
 import Course from "../../components/courseCard";
 import Layout from "../../components/layout";
+import Loading from "../../components/loading";
 import { courses } from "../../constants";
 import useAuth from "../../hooks/useAuth";
 import { UnCertainCourse } from "../../types/course";
@@ -43,6 +44,7 @@ const Page: NextPageWithLayout = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Loading />
       <main className="flex flex-col my-[5.5rem] mx-4 min-h-screen">
         {!isLoggedIn ? (
           <div className="flex flex-col justify-center items-center w-full">

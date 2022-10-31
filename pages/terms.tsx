@@ -1,11 +1,22 @@
+import Head from "next/head";
 import React from "react";
 import { ReactElement } from "react";
 import Layout from "../components/layout";
+import Loading from "../components/loading";
 import { NextPageWithLayout } from "./_app";
 
 const Page: NextPageWithLayout = () => {
   return (
     <>
+      <Head>
+        <title>LearnIT</title>
+        <meta
+          name="description"
+          content="LearnIT - Warunki użytkowania"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Loading />
       <main className="flex justify-center items-center min-h-screen">
         <div className="p-4 bg-gray-100 text-gray-600 font-regular text-center rounded-md">
           <h1 className="font-bold text-black">

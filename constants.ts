@@ -1,5 +1,5 @@
 import path from "path";
-import { getCountOfFilesInDir } from "./pages/api/courses/lessons";
+import { getCountOfFilesInDir, getCountOfLessonsLocally } from "./pages/api/courses/lessons";
 import { Course } from "./types/course";
 import LessonsResData from "./types/responseTypes/lessonsResponse";
 
@@ -44,13 +44,28 @@ const programmingLanguages: Record<string, string> = {
 
 const lessonsFetcher = (url: string): Promise<LessonsResData> =>
   fetch(process.env.apiUrl + url).then((res) => res.json());
+
 const reposCountFetcher = (url: string): Promise<any> =>
   fetch(url).then((res) => res.json());
+
+
+// Data last fetched 31.10.2022
+const estimatedReposCount: Record<string, number> = {
+  javascript: 16000000,
+  typescript: 3500000,
+  python: 9200000,
+  java: 12000000,
+  kotlin: 950000,
+  csharp: 4000000,
+  go: 1100000,
+  php: 3700000,
+  ruby: 2700000,
+}
 
 const getReposCount = async (language: string): Promise<number | 0> => {
   let reposCount = 0;
   try {
-    if (localStorage) {
+    if (localStorage !== undefined) {
       const cachedReposCount = localStorage.getItem("reposCount");
       if (cachedReposCount) {
         if (JSON.parse(cachedReposCount)[language]) {
@@ -68,6 +83,10 @@ const getReposCount = async (language: string): Promise<number | 0> => {
       }
     }
   } catch (err) {
+    return estimatedReposCount[language]
+  }
+  if (reposCount === 0) {
+    return estimatedReposCount[language]
   }
   return reposCount;
 };

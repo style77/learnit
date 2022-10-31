@@ -30,7 +30,7 @@ const CourseCard = ({ course }: Props) => {
     <>
       {isLoggedIn && (
         <>
-          <div className="bg-gray-100/75 rounded-md">
+          <div className="bg-gray-100/80 rounded-md">
             <div className="flex flex-col gap-4">
               <div className="flex flex-row p-4 items-center justify-start ml-4">
                 <Image

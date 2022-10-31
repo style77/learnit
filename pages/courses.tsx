@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ReactElement, useEffect, useState } from "react";
 import Card from "../components/card";
 import Layout from "../components/layout";
+import Loading from "../components/loading";
 import { Progress, ProgressIndicator } from "../components/progress";
 import { courses } from "../constants";
 import { NextPageWithLayout } from "./_app";
@@ -19,6 +20,7 @@ const Page: NextPageWithLayout = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Loading />
       <main className="items-center justify-center py-32 flex">
         <div className="flex flex-col lg:grid grid-cols-3 gap-6 mx-20">
           {courses.map((course) => (
