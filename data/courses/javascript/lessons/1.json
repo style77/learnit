@@ -1,0 +1,18 @@
+{
+    "title": "Hello world!",
+    "description": "Javascript lekcja 1\n",
+    "number": 1,
+    "tags": [
+        "javascript",
+        "js",
+        "hello world"
+    ],
+    "examples": {
+        "hello_world": {
+            "title": "Hello world!",
+            "description": "Javascript lekcja 1\n",
+            "code": "console.log(\"Hello world!\");",
+            "output": "Hello world!"
+        }
+    } 
+}

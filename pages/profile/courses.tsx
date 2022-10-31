@@ -51,7 +51,7 @@ const Page: NextPageWithLayout = () => {
         </div>
       )}
       <main className="flex min-h-screen">
-        <div className="flex flex-col gap-4 mt-20">
+        <div className="flex flex-col gap-4 mt-20 ml-4">
             {userCourses.map((course) => (
                 <Course course={course} />
             ))}

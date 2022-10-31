@@ -1,0 +1,17 @@
+{
+    "title": "Hello world!",
+    "description": "Python lekcja 1\n",
+    "number": 1,
+    "tags": [
+        "python",
+        "hello world"
+    ],
+    "examples": {
+        "hello_world": {
+            "title": "Hello world!",
+            "description": "Python lekcja 1",
+            "code": "print(\"Hello world!\")",
+            "output": "Hello world!"
+        }
+    } 
+}

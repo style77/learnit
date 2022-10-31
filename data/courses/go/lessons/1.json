@@ -1,0 +1,17 @@
+{
+    "title": "Hello world!",
+    "description": "Golang lekcja 1\n",
+    "number": 1,
+    "tags": [
+        "go",
+        "hello world"
+    ],
+    "examples": {
+        "hello_world": {
+            "title": "Hello world!",
+            "description": "Golang lekcja 1\n",
+            "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello world!\")\n}\n",
+            "output": "Hello world!\n"
+        }
+    } 
+}

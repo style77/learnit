@@ -1,0 +1,17 @@
+{
+    "title": "Hello world!",
+    "description": "Ruby lekcja 1",
+    "number": 1,
+    "tags": [
+        "ruby",
+        "hello world"
+    ],
+    "examples": {
+        "hello_world": {
+            "title": "Hello world!",
+            "description": "Ruby lekcja 1",
+            "code": "puts \"Hello world!\"",
+            "output": "Hello world!"
+        }
+    } 
+}

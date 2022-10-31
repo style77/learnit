@@ -21,7 +21,7 @@ const useAuth = () => {
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
         getDocs(q).then((querySnapshot: QuerySnapshot) => {
           querySnapshot.forEach((doc: DocumentData) => {
-            setUser({ ...user, ...doc.data() });
+            setUser({ ...user, ...doc.data(), ref: doc.ref });
           });
         });
       }

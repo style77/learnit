@@ -1,0 +1,21 @@
+{
+    "title": "Hello world!",
+    "description": "Csharp lekcja 1\n" ,
+    "number": 1,
+    "tags": [
+        "csharp",
+        "hello world"
+    ],
+    "examples": [
+        {
+            "title": "Hello world",
+            "description": "Hello world",
+            "code": "// Hello world\nConsole.WriteLine(\"Hello world\");",
+            "tags": [
+                "csharp",
+                "dotnet",
+                "cli"
+            ]
+        }
+    ]
+}

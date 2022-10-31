@@ -11,3 +11,9 @@ export type Lesson = {
     source: string;
     number: number;
 }
+
+export type LessonObject = {
+    title: string;
+    description: string;
+    examples: string[];
+}

@@ -1,0 +1,17 @@
+{
+    "title": "Hello world!",
+    "description": "PHP lekcja 1\n",
+    "number": 1,
+    "tags": [
+        "php",
+        "Hello world"
+    ],
+    "examples": {
+        "hello_world": {
+            "title": "Hello world!",
+            "description": "PHP lekcja 1\n",
+            "code": "<?php\n\necho \"Hello world!\";\n\n?>",
+            "output": "Hello world!"
+        }
+    } 
+}

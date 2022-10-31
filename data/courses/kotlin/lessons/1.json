@@ -1,0 +1,17 @@
+{
+    "title": "Hello world!",
+    "description": "Kotlin lekcja 1\n",
+    "number": 1,
+    "tags": [
+        "kotlin",
+        "hello world"
+    ],
+    "examples": {
+        "hello_world": {
+            "title": "Hello world!",
+            "description": "Kotlin lekcja 1\n",
+            "code": "fun main(args: Array<String>) {\n    println(\"Hello world!\")\n}",
+            "output": "Hello world!"
+        }
+    } 
+}
