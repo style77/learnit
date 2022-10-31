@@ -25,28 +25,56 @@ const humanizeError = (errorCode: string) => {
 };
 
 const programmingLanguages: Record<string, string> = {
-    javascript: 'JavaScript',
-    typescript: 'TypeScript',
-    python: 'Python',
-    java: 'Java',
-    kotlin: 'Kotlin',
-    csharp: 'C#',
-    go: 'Go',
-    php: 'PHP',
-    ruby: 'Ruby',
-    scala: 'Scala',
-    swift: 'Swift',
-    objectivec: 'Objective-C',
-    cpp: 'C++',
-    c: 'C',
-    rust: 'Rust'
+  javascript: "JavaScript",
+  typescript: "TypeScript",
+  python: "Python",
+  java: "Java",
+  kotlin: "Kotlin",
+  csharp: "C#",
+  go: "Go",
+  php: "PHP",
+  ruby: "Ruby",
+  scala: "Scala",
+  swift: "Swift",
+  objectivec: "Objective-C",
+  cpp: "C++",
+  c: "C",
+  rust: "Rust",
 };
 
-const lessonsFetcher = (url: string): Promise<LessonsResData> => fetch(process.env.apiUrl + url).then((res) => res.json());
-const reposCountFetcher = (url: string): Promise<any> => fetch(url).then((res) => res.json());
+const lessonsFetcher = (url: string): Promise<LessonsResData> =>
+  fetch(process.env.apiUrl + url).then((res) => res.json());
+const reposCountFetcher = (url: string): Promise<any> =>
+  fetch(url).then((res) => res.json());
+
+const getReposCount = async (language: string): Promise<number | 0> => {
+  let reposCount = 0;
+  try {
+    if (localStorage) {
+      const cachedReposCount = localStorage.getItem("reposCount");
+      if (cachedReposCount) {
+        if (JSON.parse(cachedReposCount)[language]) {
+          reposCount = JSON.parse(cachedReposCount)[language];
+        } else {
+          const res = await reposCountFetcher(
+            `https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc`
+          );
+          const newData = {
+            [language]: res.total_count,
+          };
+          localStorage.setItem("reposCount", JSON.stringify(newData));
+          reposCount = res.total_count;
+        }
+      }
+    }
+  } catch (err) {
+  }
+  return reposCount;
+};
 
 const courses: Course[] = [
   {
+    id: 1,
     title: programmingLanguages.javascript,
     language: "javascript",
     description:
@@ -57,11 +85,7 @@ const courses: Course[] = [
     tags: ["JavaScript", "ECMAScript", "JS"],
     source: "data/courses/javascript",
     TBA: false,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:javascript"
-      )
-    ).total_count as number,
+    reposCount: (await getReposCount("javascript")) as number,
     allLessons: (
       await lessonsFetcher(
         "/api/courses/lessons?language=javascript&type=count"
@@ -69,6 +93,7 @@ const courses: Course[] = [
     ).data as number,
   },
   {
+    id: 2,
     title: programmingLanguages.typescript,
     language: "typescript",
     description:
@@ -79,11 +104,7 @@ const courses: Course[] = [
     tags: ["TypeScript", "TS", "JS"],
     source: "data/courses/typescript/lessons",
     TBA: false,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:typescript"
-      )
-    ).total_count as number,
+    reposCount: await getReposCount("typescript") as number,
     allLessons: (
       await lessonsFetcher(
         "/api/courses/lessons?language=typescript&type=count"
@@ -91,6 +112,7 @@ const courses: Course[] = [
     ).data as number,
   },
   {
+    id: 3,
     title: programmingLanguages.python,
     language: "python",
     description:
@@ -100,16 +122,13 @@ const courses: Course[] = [
     tags: ["Python", "Py"],
     source: "data/courses/python",
     TBA: true,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:python"
-      )
-    ).total_count as number,
+    reposCount: await getReposCount("python") as number,
     allLessons: (
       await lessonsFetcher("/api/courses/lessons?language=python&type=count")
     ).data as number,
   },
   {
+    id: 4,
     title: programmingLanguages.java,
     language: "java",
     description:
@@ -119,16 +138,13 @@ const courses: Course[] = [
     tags: ["Java", "JVM"],
     source: "data/courses/java",
     TBA: true,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:java"
-      )
-    ).total_count as number,
+    reposCount: await getReposCount("java") as number,
     allLessons: (
       await lessonsFetcher("/api/courses/lessons?language=java&type=count")
     ).data as number,
   },
   {
+    id: 5,
     title: programmingLanguages.kotlin,
     language: "kotlin",
     description:
@@ -139,16 +155,13 @@ const courses: Course[] = [
     tags: ["Kotlin", "Kt"],
     source: "data/courses/kotlin",
     TBA: true,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:kotlin"
-      )
-    ).total_count as number,
+    reposCount: await getReposCount("kotlin") as number,
     allLessons: (
       await lessonsFetcher("/api/courses/lessons?language=kotlin&type=count")
     ).data as number,
   },
   {
+    id: 6,
     title: programmingLanguages.csharp,
     language: "csharp",
     description:
@@ -159,16 +172,13 @@ const courses: Course[] = [
     tags: ["C#", "CSharp", "C-Sharp", "C Sharp"],
     source: "data/courses/csharp",
     TBA: true,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:csharp"
-      )
-    ).total_count as number,
+    reposCount: await getReposCount("csharp") as number,
     allLessons: (
       await lessonsFetcher("/api/courses/lessons?language=csharp&type=count")
     ).data as number,
   },
   {
+    id: 7,
     title: programmingLanguages.go,
     language: "go",
     description:
@@ -179,16 +189,13 @@ const courses: Course[] = [
     tags: ["Go", "Golang"],
     source: "data/courses/go",
     TBA: false,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:go"
-      )
-    ).total_count as number,
+    reposCount: await getReposCount("go") as number,
     allLessons: (
       await lessonsFetcher("/api/courses/lessons?language=go&type=count")
     ).data as number,
   },
   {
+    id: 8,
     title: programmingLanguages.php,
     language: "php",
     description:
@@ -199,16 +206,13 @@ const courses: Course[] = [
     tags: ["PHP"],
     source: "data/courses/php",
     TBA: true,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:php"
-      )
-    ).total_count as number,
+    reposCount: await getReposCount("php") as number,
     allLessons: (
       await lessonsFetcher("/api/courses/lessons?language=php&type=count")
     ).data as number,
   },
   {
+    id: 9,
     title: programmingLanguages.ruby,
     language: "ruby",
     description:
@@ -219,15 +223,11 @@ const courses: Course[] = [
     tags: ["Ruby", "Rb"],
     source: "data/courses/ruby",
     TBA: true,
-    reposCount: (
-      await reposCountFetcher(
-        "https://api.github.com/search/repositories?q=language:ruby"
-      )
-    ).total_count as number,
+    reposCount: await getReposCount("ruby") as number,
     allLessons: (
       await lessonsFetcher("/api/courses/lessons?language=ruby&type=count")
     ).data as number,
   },
 ];
 
-export { humanizeError, programmingLanguages, courses }
+export { humanizeError, programmingLanguages, courses };

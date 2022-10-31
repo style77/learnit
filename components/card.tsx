@@ -32,7 +32,7 @@ const Card = ({ data }: Props) => {
                 width={25}
                 height={25}
                 data-tba={data.TBA}
-                className="object-contain rounded-md data-[TBA=true]:opacity-50 group-hover:opacity-100 transition"
+                className="object-contain rounded-md data-[TBA=true]:opacity-50 group-hover:opacity-100 transition w-auto h-auto"
               />
               {data.TBA ? <span className="ml-4">Wkrótce!</span> : null}
             </div>

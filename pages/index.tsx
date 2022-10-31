@@ -14,6 +14,16 @@ const Page: NextPageWithLayout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
+      <main className="flex min-h-screen">
+        <div className="flex flex-col justify-center items-center w-full">
+            <h1 className="text-4xl font-bold text-gray-800">
+                Witaj na stronie LearnIT!
+            </h1>
+            <p className="text-xl text-gray-800">
+                Naucz się programowania w praktyce!
+            </p>
+        </div>
+      </main>
     </>
   )
 };

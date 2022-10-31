@@ -201,6 +201,7 @@ const RegisterCard = ({
       uid: user.uid,
       displayName: user.displayName || name,
       photoURL: user.photoURL || "",
+      courses: []
     }).catch((error) => {
       setError(error.message);
     });

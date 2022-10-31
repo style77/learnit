@@ -1,8 +1,8 @@
-import ICourse from "./icourse";
+import { ICourse } from "./course";
 
 type IUser = {
     uid: string;
-    name: string;
+    displayName: string;
     email: string;
     photoURL: string;
     emailVerified: boolean;

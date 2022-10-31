@@ -1,13 +1,17 @@
-import { FC } from "react";
+import { FC, ReactElement, ReactNode } from "react";
 import Navbar from "./navbar";
 
-const Layout = ({children}) => {
-    return (
-        <>
-            <Navbar />
-            <main>{children}</main>
-        </>
-    )
+type Props = {
+    children: React.ReactNode;
 }
+
+const Layout: React.FunctionComponent<Props> = (props: Props) => {
+  return (
+    <>
+      <Navbar />
+      <main>{props.children}</main>
+    </>
+  );
+};
 
 export default Layout;

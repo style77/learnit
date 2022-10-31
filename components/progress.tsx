@@ -11,7 +11,7 @@ const StyledProgress = styled(ProgressPrimitive.Root, {
   background: "linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 100%)",
   borderRadius: "99999px",
   width: 300,
-  height: 25,
+  height: 8,
 
   // Fix overflow clipping in Safari
   // https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0

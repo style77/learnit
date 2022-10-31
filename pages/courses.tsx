@@ -9,19 +9,6 @@ import { courses } from "../constants";
 import { NextPageWithLayout } from "./_app";
 
 const Page: NextPageWithLayout = () => {
-  const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setProgress(100);
-    }, 1000);
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
-
   return (
     <>
       <Head>
@@ -34,21 +21,9 @@ const Page: NextPageWithLayout = () => {
       </Head>
       <main className="items-center justify-center py-32 flex">
         <div className="flex flex-col lg:grid grid-cols-3 gap-6 mx-20">
-          {loading ? (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <Progress value={progress}>
-                <ProgressIndicator
-                  style={{ transform: `translateX(-${100 - progress}%)` }}
-                />
-              </Progress>
-            </div>
-          ) : (
-            <>
-              {courses.map((course) => (
-                <Card data={course} />
-              ))}
-            </>
-          )}
+          {courses.map((course) => (
+            <Card data={course} key={course.title} />
+          ))}
         </div>
       </main>
     </>

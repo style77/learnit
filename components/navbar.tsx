@@ -1,12 +1,36 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import NavLink from "./navlink";
+import { AiOutlineMenu } from "react-icons/ai";
+
+import useAuth from "../hooks/useAuth";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import * as Tooltip from "@radix-ui/react-tooltip";
+
+import { styled, keyframes } from "@stitches/react";
+import { auth } from "../saas/firebase";
+import useOnClickOutside from "../hooks/useOnClickOutside";
+
+const scaleIn = keyframes({
+  "0%": { opacity: 0, transform: "scale(0)" },
+  "100%": { opacity: 1, transform: "scale(1)" },
+});
+const TooltipContent = styled(Tooltip.Content, {
+  transformOrigin: "var(--radix-tooltip-content-transform-origin)",
+  animation: `${scaleIn} 0.5s ease-out`,
+});
 
 export const Navbar = () => {
   const [dropdownToggle, setDropdownToggle] = useState(false);
+  const [userDropdownToggle, setUserDropdownToggle] = useState(false);
+  const { user, isLoggedIn } = useAuth();
 
-const toggleDropdown = () => {
+  const userDropdown = useRef<HTMLDivElement | null>(null)
+
+  const toggleDropdown = () => {
     setDropdownToggle(!dropdownToggle);
-}
+  };
+
+  useOnClickOutside(userDropdown, () => setUserDropdownToggle(false));
 
   return (
     <>
@@ -23,13 +47,87 @@ const toggleDropdown = () => {
             </span>
           </a>
           <div className="flex md:order-2">
-            <a
-              href="/login"
-              type="button"
-              className="text-white font-normal bg-blue-700 hover:bg-blue-800 transition focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
-            >
-              Zaloguj się
-            </a>
+            {isLoggedIn ? (
+              <>
+                <AvatarPrimitive.Root
+                  onClick={() => setUserDropdownToggle(!userDropdownToggle)}
+                >
+                  <AvatarPrimitive.Image
+                    src={user?.photoURL}
+                    className="h-12 rounded-full border-2 hover:opacity-90 transition cursor-pointer"
+                  />
+                  <AvatarPrimitive.Fallback>{`${user?.displayName[0].toUpperCase()}`}</AvatarPrimitive.Fallback>
+                </AvatarPrimitive.Root>
+                <>
+                  {userDropdownToggle ? (
+                    <>
+                      <div
+                        className="absolute z-50 my-4 mt-12 -ml-20 text-base list-none bg-white rounded divide-y divide-gray-100 shadow"
+                        ref={userDropdown}
+                      >
+                        <div className="py-3 px-4">
+                          <span className="block text-sm text-gray-900">
+                            {user?.displayName}
+                          </span>
+                          <span className="block text-sm font-medium text-gray-500 truncate">
+                            {user?.email}
+                          </span>
+                        </div>
+                        <ul className="py-1" aria-labelledby="user-menu-button">
+                          <li>
+                            <NavLink
+                              href="/profile"
+                              activeClassName="block py-2 px-4 text-sm text-blue-700 bg-gray-100"
+                            >
+                              <span className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+                                Profil
+                              </span>
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              href="/profile/courses"
+                              activeClassName="block py-2 px-4 text-sm text-blue-700 bg-gray-100"
+                            >
+                              <span className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+                                Kursy
+                              </span>
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              href="/profile/settings"
+                              activeClassName="block py-2 px-4 text-sm text-blue-700 bg-gray-100"
+                            >
+                              <span className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">
+                                Ustawienia
+                              </span>
+                            </NavLink>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+                              onClick={() => auth.signOut()}
+                            >
+                              Wyloguj się
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </>
+                  ) : null}
+                </>
+              </>
+            ) : (
+              <>
+                <NavLink href="/login">
+                  <button className="text-white font-normal bg-blue-700 hover:bg-blue-800 transition focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
+                    Zaloguj się
+                  </button>
+                </NavLink>
+              </>
+            )}
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
@@ -39,19 +137,7 @@ const toggleDropdown = () => {
               onClick={() => toggleDropdown()}
             >
               <span className="sr-only">Otwórz menu</span>
-              <svg
-                className="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
+              <AiOutlineMenu />
             </button>
           </div>
           <div
