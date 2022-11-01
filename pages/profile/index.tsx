@@ -1,15 +1,30 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { FaEdit } from "react-icons/fa";
 import Layout from "../../components/layout";
 import useAuth from "../../hooks/useAuth";
 import { NextPageWithLayout } from ".././_app";
+import { MdDone,MdCalendarToday } from "react-icons/md";
+import { UserStats } from "../../components/userStats";
+
+
+
+const icons: Record<string, ReactNode> = {
+  coursesDone: <MdDone />,
+  daysInRow: <MdCalendarToday />,
+};
 
 const Page: NextPageWithLayout = () => {
-
   const { user, isLoggedIn } = useAuth();
+  const currentLevelDisplay = () => {
+
+  }
+
+  const levelUp=()=>{
+
+  }
 
   return (
     <>
@@ -22,40 +37,27 @@ const Page: NextPageWithLayout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {isLoggedIn ? (
-        <main className="flex justify-center items-start min-h-screen pt-28">
-          <div className="bg-gray-100/75 rounded-md p-4">
-            <h1 className="text-2xl font-bold text-gray-700">Profil</h1>
-            <p className="text-gray-700">Zarządzaj swoim kontem</p>
-
-            <div className="flex flex-col items-center justify-center mt-3">
-              <div className="flex flex-col items-center justify-center">
-                <Image
-                  src={user?.photoURL as string}
-                  alt="Profile picture"
-                  width={100}
-                  height={100}
-                  className="rounded-full"
-                />
-                <button className="bg-blue-500 hover:bg-blue-700 transition text-white font-bold py-2 px-4 rounded mt-4">
-                  <div className="flex flex-row items-center gap-1">
-                    <FaEdit />
-                    Zmień zdjęcie
-                  </div>
-                </button>
-              </div>
-              <div className="flex flex-col items-center justify-center border-t-2 border-gray-600 mt-3">
-                <h2 className="text-xl font-bold text-gray-500 mt-1">
-                  Dane osobowe
-                </h2>
-                <div className="flex flex-col items-center justify-center">
-                  <div className="flex flex-col items-center justify-center">
-                    <label className="text-gray-700">Nick</label>
-                    <input
-                      type="text"
-                      className="border-2 border-gray-300 p-2 rounded-md"
-                      value={user?.displayName as string}
-                    />
-                  </div>
+        <main className="flex justify-start items-start min-h-screen pt-28 ">
+          <div>
+            <div className="flex flex-col w-screen ">
+              <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center md:justify-center lg:justify-start xl:justify-start w-full bg-gray-main px-6 py-12">
+                <div>
+                  <Image
+                    src={user?.photoURL as string}
+                    alt="Profile picture"
+                    width={100}
+                    height={100}
+                    className="rounded-full border-gray-second border-4"
+                  />
+                </div>
+                <div className="text-3xl text-white">
+                  Cześć, {user?.displayName.split(" ")[0]}!
+                </div>
+                <div className="grid grid-rows-2 grid-flow-col">
+                  <UserStats value={3} description="Skończone kursy" icon={icons["coursesDone"]} iconColor="green-done"></UserStats>
+                  <UserStats value={37} description="Dni nauki pod rząd" icon={icons["daysInRow"]} iconColor="green-done"></UserStats>
+                  <UserStats value={37} description="Dni nauki pod rząd" icon={icons["daysInRow"]} iconColor="green-done"></UserStats>
+                  <UserStats value={37} description="Dni nauki pod rząd" icon={icons["daysInRow"]} iconColor="green-done"></UserStats>
                 </div>
               </div>
             </div>

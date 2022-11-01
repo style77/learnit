@@ -42,6 +42,22 @@ const programmingLanguages: Record<string, string> = {
   rust: "Rust",
 };
 
+const levels:Record<string,string>={
+  novice:"Nowicjusz",
+  beginner:"Początkujący",
+  junior:"Junior",
+  mid:"Średnio zaawansowany",
+  senior:"Zaawansowany"
+}
+
+const levelPoints:Record<string,number>={
+  novice:300,
+  beginner:600,
+  junior:1200,
+  mid:2400,
+  senior:4800
+}
+
 const lessonsFetcher = (url: string): Promise<LessonsResData> =>
   fetch(process.env.apiUrl + url).then((res) => res.json());
 
