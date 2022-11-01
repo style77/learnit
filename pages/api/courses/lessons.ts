@@ -2,7 +2,7 @@
 // basically it returns all files from data/courses/{course}/lessons directory
 // returns JSON in schema:
 // {
-//  "type": "type of request", can be 'all', 'count', 'single' and 'error'
+//  "type": "type of request", can be 'all', 'count', 'single', 'lesson' and 'error'
 //  "data": "data returned from request (if any)"
 // }
 //
@@ -10,6 +10,7 @@
 // 'all' - returns all courses
 // 'count' - returns number of lessons in course
 // 'single' - returns single course
+// 'lesson' - returns single lesson
 // 'error' - returns error
 
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -34,6 +35,15 @@ export const getCountOfFilesInDir = async (dir: string) => {
   return files.length;
 };
 
+export const getLessonFile = async (dir: string, lessonNumber: number) => {
+  // params:
+  // dir - directory in format 'data/courses/{course}', just like in constants.ts
+  // lessonNumber - number of lesson
+
+  const file = await fs.readFile(`${dir}/lessons/${lessonNumber}.json`, "utf-8");
+  return file;
+};
+
 export const getCountOfLessonsLocally = async (language: string) => {
   // params:
   // language - language of course
@@ -51,7 +61,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<LessonsResData>
 ) {
-  const { language, type } = req.query;
+  const { language, type, lessonNumber } = req.query;
 
   if (!type) {
     res.status(400).json({ type: "error", data: "No type specified" });
@@ -62,23 +72,19 @@ export default async function handler(
 
   if (type === "all") {
     if (language) {
-      res
-        .status(400)
-        .json({
-          type: "error",
-          data: "Bad request. You cannot specify language in this type of request.",
-        });
+      res.status(400).json({
+        type: "error",
+        data: "Bad request. You cannot specify language in this type of request.",
+      });
       return;
     }
     data = await getFilesInDir(path.join(process.cwd(), "data", "courses"));
   } else if (type === "count") {
     if (!language) {
-      res
-        .status(400)
-        .json({
-          type: "error",
-          data: "Bad request. You must specify language in this type of request.",
-        });
+      res.status(400).json({
+        type: "error",
+        data: "Bad request. You must specify language in this type of request.",
+      });
       return;
     }
     data = await getCountOfFilesInDir(
@@ -86,24 +92,39 @@ export default async function handler(
     );
   } else if (type === "single") {
     if (!language) {
-      res
-        .status(400)
-        .json({
-          type: "error",
-          data: "Bad request. You must specify language in this type of request.",
-        });
+      res.status(400).json({
+        type: "error",
+        data: "Bad request. You must specify language in this type of request.",
+      });
       return;
     }
     data = await getFilesInDir(
       path.join(process.cwd(), "data", "courses", language as string)
     );
-  } else {
-    return res
-      .status(400)
-      .json({
+  } else if (type === "lesson") {
+    if (!language) {
+      res.status(400).json({
         type: "error",
-        data: "Bad request. Type must be one of: all, count, single",
+        data: "Bad request. You must specify language in this type of request.",
       });
+      return;
+    }
+    if (!lessonNumber) {
+      res.status(400).json({
+        type: "error",
+        data: "Bad request. You must specify lesson number in this type of request.",
+      });
+      return;
+    }
+    data = await getLessonFile(
+      path.join(process.cwd(), "data", "courses", language as string),
+      Number(lessonNumber)
+    );
+  } else {
+    return res.status(400).json({
+      type: "error",
+      data: "Bad request. Type must be one of: all, count, single",
+    });
   }
 
   res.status(200).json({ type: type, data: data });

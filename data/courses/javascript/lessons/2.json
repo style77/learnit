@@ -7,12 +7,12 @@
         "js",
         "hello world"
     ],
-    "examples": [
-        {
+    "examples": {
+        "hello_world": {
             "title": "Hello world!",
             "description": "Javascript lekcja 1\n",
             "code": "console.log(\"Hello world!\");",
             "output": "Hello world!"
         }
-    ]
+    } 
 }

@@ -18,7 +18,9 @@ module.exports = {
     messagingSenderId: process.env.messagingSenderId,
     appId: process.env.appId,
     measurementId: process.env.measurementId,
-    apiUrl: process.env.apiUrl
+    apiUrl: process.env.apiUrl,
+    jdoodleClientId: process.env.jdoodleClientId,
+    jdoodleClientSecret: process.env.jdoodleClientSecret,
   },
   webpack: (config, options) => {
     config.module.rules.push({

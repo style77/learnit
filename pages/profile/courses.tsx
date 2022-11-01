@@ -18,19 +18,32 @@ const Page: NextPageWithLayout = () => {
     if (isLoggedIn && user) {
       let data: any[] = [];
       courses.forEach((course) => {
+        console.log(course)
         user.courses.map((userCourse) => {
           if (userCourse.courseId === course.id) {
             data.push({
               ...course,
               ...userCourse,
             });
+          } else {
+            data.push({
+              ...course,
+              currentLesson: 0,
+              completed: false,
+              number: 1,
+            });
           }
         });
-
-        data.push({ ...course, currentLesson: 0, completed: false });
+        if (!user.courses) {
+          data.push({
+            ...course,
+            currentLesson: 0,
+            completed: false,
+            number: 1,
+          });
+        }
       });
       setUserCourses(data);
-      console.log(data);
     }
   }, [user]);
 
@@ -45,7 +58,7 @@ const Page: NextPageWithLayout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Loading />
-      <main className="flex flex-col my-[5.5rem] mx-4 min-h-screen">
+      <main className="flex flex-col my-32 mx-4 min-h-screen">
         {!isLoggedIn ? (
           <div className="flex flex-col justify-center items-center w-full">
             <h1 className="text-4xl font-bold text-gray-800">

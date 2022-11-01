@@ -1,5 +1,5 @@
 type LessonsResData = {
-  type: 'all' | 'count' | 'single' | 'error';
+  type: 'all' | 'count' | 'single' | 'lesson' | 'error';
   data: string | number | string[];
 }
 

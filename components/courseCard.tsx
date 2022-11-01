@@ -1,10 +1,11 @@
 import { updateDoc } from "firebase/firestore";
 import Image from "next/image";
+import Link from "next/link";
 import { FaCheck } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import { ICourse, Course, UnCertainCourse } from "../types/course";
 import IUser from "../types/iuser";
-import { ILesson } from "../types/lesson";
+import { ILesson, Lesson } from "../types/lesson";
 import StartCourseDialog from "./modals/startCourse";
 import { Progress, ProgressIndicator } from "./progress";
 
@@ -17,9 +18,44 @@ type StartCourseProps = {
   user: IUser;
 };
 
-const StartCourse = ({course, user}: StartCourseProps) => {
+const getTimeEpoch = () => {
+  return new Date().getTime().toString();
+};
+
+const StartCourse = ({ course, user }: StartCourseProps) => {
+  const lessons: Lesson[] = [];
+
+  // iterate over lessons count and create Lesson objects then push them to lessons array
+  Array(course.allLessons)
+    .fill(0)
+    .map((_, i) => {
+      lessons.push({
+        title: `Lekcja ${i + 1}`,
+        source: `${course.source}/lessons/${i + 1}`,
+        number: i + 1,
+      });
+    });
+
+  const ilesson: ILesson = {
+    id: getTimeEpoch(),
+    lesson: lessons[0],
+    progress: 0,
+    started: new Date(),
+    completed: null,
+  };
+
+  const icourseData: ICourse = {
+    currentLesson: 1,
+    completed: false,
+    courseId: course.id,
+    id: getTimeEpoch(),
+    lessons: [ilesson],
+    course: course,
+    started: new Date(),
+  };
+
   updateDoc(user.ref, {
-    courses: [...user.courses, course.courseId],
+    courses: [...user.courses, icourseData],
   });
 };
 
@@ -59,11 +95,13 @@ const CourseCard = ({ course }: Props) => {
                       {course.currentLesson !== 0 && course.lessons ? (
                         <div className="flex">
                           <span className="text-gray-600 hover:text-gray-800 transition font-semibold cursor-pointer">
-                            Następna lekcja:{" "}
-                            {
-                              course.lessons[course.currentLesson + 1].lesson
-                                .title
-                            }
+                            <Link href={`/lesson/${course.language}/${course.currentLesson}`}>
+                              <button className="text-gray-200 font-regular bg-blue-600 px-2 py-2 shadow-md rounded-md transition hover:bg-blue-800">
+                                Rozpocznij lekcję
+                              </button>
+                            </Link>
+                            {course.lessons[course.currentLesson + 1]?.lesson
+                              .title && "Brak więcej lekcji 😢"}
                           </span>
                         </div>
                       ) : (
@@ -73,7 +111,7 @@ const CourseCard = ({ course }: Props) => {
                               title={course.title}
                               description={course.description}
                               lessonsCount={course.allLessons}
-                              onConfirm={() => StartCourse({course, user})}
+                              onConfirm={() => StartCourse({ course, user })}
                             />
                           )}
                         </div>
@@ -88,19 +126,28 @@ const CourseCard = ({ course }: Props) => {
                     <div className="flex">
                       <h1 className="font-medium text-gray-800">
                         Postęp{" "}
-                        {(course.currentLesson / course.allLessons) * 100}%
+                        {((course.started ? course.currentLesson-1 : 0) /
+                          course.allLessons) *
+                          100}
+                        %
                       </h1>
                     </div>
                     <div className="flex">
                       <Progress
-                        value={(course.currentLesson / course.allLessons) * 100}
+                        value={
+                          ((course.started ? course.currentLesson-1 : 0) /
+                            course.allLessons) *
+                          100
+                        }
                         className="w-full"
                       >
                         <ProgressIndicator
                           style={{
                             transform: `translateX(-${
                               100 -
-                              (course.currentLesson / course.allLessons) * 100
+                              ((course.started ? course.currentLesson-1 : 0) /
+                                course.allLessons) *
+                                100
                             }%)`,
                           }}
                         />

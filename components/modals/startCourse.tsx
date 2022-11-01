@@ -91,6 +91,7 @@ const Button = styled("button", {
   justifyContent: "center",
   borderRadius: 4,
   padding: "0 15px",
+  transition: "all 200ms ease-out",
   fontSize: 15,
   lineHeight: 1,
   fontWeight: 500,

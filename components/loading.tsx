@@ -49,6 +49,7 @@ const Loading = () => {
               </svg>
               <span className="sr-only">Loading...</span>
             </div>
+            <span className="text-gray-800 font-semibold mt-2">Ładowanie...</span>
           </div>
         </div>
       )}

@@ -19,17 +19,30 @@ const Page: NextPageWithLayout = () => {
       </Head>
       <Loading />
       <main className="flex min-h-screen">
-        <div className="flex flex-col justify-start py-32 items-center w-full">
-          <h1 className="text-4xl font-bold text-gray-800 pb-4">
-            Witaj na stronie LearnIT!
+        <div className="flex flex-col py-32 items-center w-full">
+          <h1 className="text-5xl font-bold text-gray-800 pb-4">
+            Witaj na stronie Learn<span className="text-blue-500">IT</span>!
           </h1>
-          <div className="flex flex-col" id="questions">
-            <div className="flex flex-col">
+          <p className="text-xl text-gray-600">
+            Naucz się programowania w praktyce!
+          </p>
+          <div
+            className="flex flex-col gap-4 items-center mt-14"
+            id="questions"
+          >
+            <div className="flex flex-col items-center">
+              <p className="text-2xl text-gray-800 font-bold">Kim jesteście?</p>
+              <p className="text-lg text-gray-600">
+                Grupą uczniów Technikum, którzy chcą pomóc innym w nauce
+                programowania.
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
               <p className="text-2xl text-gray-800 font-bold">
-                Kim jesteście?
+                Ile kosztuje nauka na LearnIT?
               </p>
               <p className="text-lg text-gray-600">
-                Grupą uczniów Technikum, którzy chcą pomóc innym w nauce programowania.
+                Nauka na LearnIT jest całkowicie darmowa!
               </p>
             </div>
           </div>

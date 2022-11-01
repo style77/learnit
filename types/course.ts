@@ -28,6 +28,7 @@ export type ICourse = {
 // we are not sure if user started course, so course is of course constant data + ICourse type OR just constant data + currentLesson set to 0 (to count progress)
 export type UnCertainCourse = Course & {
   id?: string;
+  number: number;
   courseId: number;
   course?: Course;
   currentLesson: number;
