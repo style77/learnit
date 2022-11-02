@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background: url("/_images/layered-waves-haikei.svg") no-repeat center center fixed;
+}

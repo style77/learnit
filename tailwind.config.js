@@ -23,7 +23,7 @@ module.exports = {
         "900": "#161e2e",
         "main":"#333333",
         "second":"#3B4248",
-        "third":"#7C848B"
+        "third":"#7C848B",
       },
       "blue": {
         "100": "#F5FAFF", // bg-color/white
@@ -52,8 +52,8 @@ module.exports = {
         "done":"#32D583",
         "rank":"#F04438",
         "days":"#7A5AF8",
-        "answers":"#FEC84B"
-      }
+        "answers":"#FEC84B",
+      },
     }
   },
   plugins: [],
