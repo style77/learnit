@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import Layout from "../../../components/layout";
 import Loading from "../../../components/loading";
-import { getLessonFile } from "../../api/courses/lessons";
 import { NextPageWithLayout } from "./../../_app";
 import showdown from "showdown";
 import { Lesson, LessonExample, LessonObject } from "../../../types/lesson";
@@ -45,7 +44,7 @@ const Page: NextPageWithLayout = () => {
       if (isLoggedIn && user) {
         let courses = user.courses;
         let courseToUpdateIndex = courses.findIndex(
-          (course: any) => course.course.language === language
+          (course: any) => course.courseLanguage === language
         );
         let courseToUpdate =
           courses[courseToUpdateIndex].currentLesson;
@@ -70,8 +69,8 @@ const Page: NextPageWithLayout = () => {
           setLesson(data);
           setLessonExamples(data.examples);
 
-          setCode(data.examples[exampleNumber]?.code);
-          setExampleOutput(data.examples[exampleNumber]?.output);
+          setCode(data.examples[exampleNumber].code);
+          setExampleOutput(data.examples[exampleNumber].output);
         }
       });
     };
@@ -80,33 +79,59 @@ const Page: NextPageWithLayout = () => {
       fetchLesson();
       fetchCurrentLesson();
     }
-  }, [language, lessonNumber, user]);
+  }, [language, lessonNumber, user, exampleNumber]);
 
-  const lessonFinished = () => {
+  const fetchLessonsCount = async () => {
+    const res = await fetch(
+      process.env.apiUrl +
+        `/api/courses/lessons?language=${language}&type=count`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+      }
+    );
+    const data = await res.json();
+    return data.data as number
+  };
+
+  const lessonFinished = async () => {
     if (user) {
-      const xp = Math.random() * (26 - 10) + 10;  // get random number between 10 and 25 (26-1)
+      const xp = Math.floor(Math.random() * (26 - 10) + 10);  // get random number between 10 and 25 (26-1)
       const currentLesson = parseInt(lessonNumber as string)+1;
       
       let courses = user.courses;
       let courseToUpdateIndex = courses.findIndex(
-        (course: any) => course.course.language === language
+        (course: any) => course.courseLanguage === language
       );
       let courseToUpdate = courses[courseToUpdateIndex]
+      
+      if (lesson) {
+        const completedLesson = {
+          lessonNumber: lessonNumber,
+          completed: new Date,
+          xp: xp
+        }
+        courseToUpdate.completedLessons = [...courseToUpdate.completedLessons, completedLesson]
+        courseToUpdate.currentLesson = currentLesson
 
-      if (courseToUpdate) {
-        courseToUpdate.lessons[courseToUpdate.currentLesson - 1].completed = new Date();
-        courseToUpdate.currentLesson = currentLesson;
-
-        if (courseToUpdate.currentLesson < courseToUpdate.lessons.length) {
+        const allLessonsCount = await fetchLessonsCount();
+        if (currentLesson > allLessonsCount) {
           courseToUpdate.completed = true;
         }
       }
 
-      courses[courseToUpdateIndex] = courseToUpdate;
+      courses = [...courses.slice(0, courseToUpdateIndex), courseToUpdate, ...courses.slice(courseToUpdateIndex+1)]
+      console.log(courses)
 
       updateDoc(doc(db, "users", user.ref.id), {
         levelExperience: user.levelExperience + xp,
         courses: courses,
+      }).then(() => {
+        console.log("Document successfully updated!");
+      }).catch((error) => {
+        console.error("Error updating document: ", error);
       });
 
       window.location.href = `/profile/courses/`;
@@ -133,7 +158,7 @@ const Page: NextPageWithLayout = () => {
                   {lesson.title}
                 </h1>
                 <div
-                  className="text-lg font-regular text-center"
+                  className="text-lg font-regular text-start mt-4 px-4"
                   dangerouslySetInnerHTML={{
                     __html: ConvertMarkdown(lesson.description),
                   }}
@@ -165,7 +190,7 @@ const Page: NextPageWithLayout = () => {
                   <>
                     {lessonExamples.length > exampleNumber + 1 ? (
                       <>
-                        {JSON.parse(output).output.replace("\n", "") ==
+                        {JSON.parse(output)?.output?.replace("\n", "") ==
                           exampleOutput && (
                           <button
                             className="bg-gray-900 hover:bg-gray-800 transition border-gray-800 text-gray-200 border-2 h-12 py-2 px-4 rounded"
@@ -180,7 +205,8 @@ const Page: NextPageWithLayout = () => {
                       </>
                     ) : (
                       <button
-                        className="bg-gray-900 hover:bg-gray-800 transition border-gray-800 text-gray-200 border-2 h-12 py-2 px-4 rounded"
+                        className="bg-gray-900 hover:bg-gray-800 disabled:hover:bg-gray-900 disabled:hover:cursor-not-allowed transition border-gray-800 text-gray-200 border-2 h-12 py-2 px-4 rounded"
+                        disabled={JSON.parse(output)?.output?.replace("\n", "") != exampleOutput}
                         onClick={() => {
                           lessonFinished();
                         }}

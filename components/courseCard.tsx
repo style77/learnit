@@ -1,8 +1,10 @@
 import { updateDoc } from "firebase/firestore";
+import { redirect } from "next/dist/server/api-utils";
 import Image from "next/image";
 import Link from "next/link";
 import { FaCheck } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
+import { getLessonFile } from "../pages/api/courses/lessons";
 import { ICourse, Course, UnCertainCourse } from "../types/course";
 import IUser from "../types/iuser";
 import { ILesson, Lesson } from "../types/lesson";
@@ -29,6 +31,7 @@ const StartCourse = ({ course, user }: StartCourseProps) => {
     courseId: course.id,
     courseLanguage: course.language,
     id: getTimeEpoch(),
+    completedLessons: [],
     source: course.source,
     started: new Date(),
   };
@@ -36,10 +39,12 @@ const StartCourse = ({ course, user }: StartCourseProps) => {
   updateDoc(user.ref, {
     courses: [...user.courses, icourseData],
   });
+  window.location.reload();
 };
 
 const CourseCard = ({ course }: Props) => {
   const { user, isLoggedIn } = useAuth();
+
 
   return (
     <>
@@ -71,7 +76,7 @@ const CourseCard = ({ course }: Props) => {
                           Lekcja {course.currentLesson}{" "}
                         </span>
                       </div>
-                      {course.currentLesson !== 0 && course.lessons ? (
+                      {course.currentLesson !== 0 ? (
                         <div className="flex">
                           <span className="text-gray-600 hover:text-gray-800 transition font-semibold cursor-pointer">
                             <Link href={`/lesson/${course.language}/${course.currentLesson}`}>
@@ -79,8 +84,6 @@ const CourseCard = ({ course }: Props) => {
                                 Rozpocznij lekcję
                               </button>
                             </Link>
-                            {course.lessons[course.currentLesson + 1]?.lesson
-                              .title && "Brak więcej lekcji 😢"}
                           </span>
                         </div>
                       ) : (

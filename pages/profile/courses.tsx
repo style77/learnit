@@ -18,7 +18,7 @@ const Page: NextPageWithLayout = () => {
     if (isLoggedIn && user) {
       let data: any[] = [];
       courses.forEach((course) => {
-        if (!course.TBA) {
+        if (course.TBA === false) {
           user.courses.map((userCourse) => {
             if (userCourse.courseId === course.id) {
               data.push({
@@ -34,7 +34,8 @@ const Page: NextPageWithLayout = () => {
               });
             }
           });
-          if (!user.courses) {
+
+          if (user.courses.length === 0) {
             data.push({
               ...course,
               currentLesson: 0,
