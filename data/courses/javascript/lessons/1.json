@@ -1,6 +1,6 @@
 {
     "title": "Hello world!",
-    "description": "Javascript lekcja 1\n",
+    "description": "`Javascript lekcja 1`\n\nTen program powinnien wypisać na ekranie napis ***\"Hello world!\"***.\nJest to pierwszy program, który każdy programista powinien napisać.",
     "number": 1,
     "tags": [
         "javascript",
@@ -11,7 +11,7 @@
         {
             "title": "Hello world!",
             "description": "Javascript lekcja 1\n",
-            "code": "console.log(\"Hello world!\");",
+            "code": "console.log(\"Hello world!\"); // Hello world!",
             "output": "Hello world!"
         }
     ]

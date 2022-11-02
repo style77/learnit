@@ -1,18 +1,18 @@
 {
-    "title": "Hello world!",
-    "description": "Javascript lekcja 1\n",
+    "title": "Zmienne",
+    "description": "Javascript lekcja 2\n\nZmienne w javascript są bardzo proste. Wystarczy użyć słowa kluczowego **var**, **const**, albo **let**.\n\n**var** - zmienna globalna\n**let** - zmienna lokalna\n**const** - stała\n\n```javascript\nvar a = 1;\nlet b = 2;\nconst c = 3;\n```\n\n",
     "number": 1,
     "tags": [
         "javascript",
         "js",
-        "hello world"
+        "zmienne"
     ],
-    "examples": {
-        "hello_world": {
-            "title": "Hello world!",
-            "description": "Javascript lekcja 1\n",
-            "code": "console.log(\"Hello world!\");",
-            "output": "Hello world!"
+    "examples": [
+        {
+            "title": "Zmienne",
+            "description": "Javascript lekcja 2\n\nZmienne w javascript są bardzo proste. Wystarczy użyć słowa kluczowego **var**, **const**, albo **let**.\n\n**var** - zmienna globalna\n**let** - zmienna lokalna\n**const** - stała\n\n```javascript\nvar a = 1;\nlet b = 2;\nconst c = 3;\n```\n\n",
+            "code": "var a = 1;\nlet b = 2;\nconst c = 3;\n\nconsole.log(`${a} ${b} ${c}`)",
+            "output": "1 2 3"
         }
-    } 
+    ]
 }

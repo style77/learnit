@@ -1,8 +1,10 @@
 import { updateDoc } from "firebase/firestore";
+import { redirect } from "next/dist/server/api-utils";
 import Image from "next/image";
 import Link from "next/link";
 import { FaCheck } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
+import { getLessonFile } from "../pages/api/courses/lessons";
 import { ICourse, Course, UnCertainCourse } from "../types/course";
 import IUser from "../types/iuser";
 import { ILesson, Lesson } from "../types/lesson";
@@ -23,44 +25,26 @@ const getTimeEpoch = () => {
 };
 
 const StartCourse = ({ course, user }: StartCourseProps) => {
-  const lessons: Lesson[] = [];
-
-  // iterate over lessons count and create Lesson objects then push them to lessons array
-  Array(course.allLessons)
-    .fill(0)
-    .map((_, i) => {
-      lessons.push({
-        title: `Lekcja ${i + 1}`,
-        source: `${course.source}/lessons/${i + 1}`,
-        number: i + 1,
-      });
-    });
-
-  const ilesson: ILesson = {
-    id: getTimeEpoch(),
-    lesson: lessons[0],
-    progress: 0,
-    started: new Date(),
-    completed: null,
-  };
-
   const icourseData: ICourse = {
     currentLesson: 1,
     completed: false,
     courseId: course.id,
+    courseLanguage: course.language,
     id: getTimeEpoch(),
-    lessons: [ilesson],
-    course: course,
+    completedLessons: [],
+    source: course.source,
     started: new Date(),
   };
 
   updateDoc(user.ref, {
     courses: [...user.courses, icourseData],
   });
+  window.location.reload();
 };
 
 const CourseCard = ({ course }: Props) => {
   const { user, isLoggedIn } = useAuth();
+
 
   return (
     <>
@@ -92,7 +76,7 @@ const CourseCard = ({ course }: Props) => {
                           Lekcja {course.currentLesson}{" "}
                         </span>
                       </div>
-                      {course.currentLesson !== 0 && course.lessons ? (
+                      {course.currentLesson !== 0 ? (
                         <div className="flex">
                           <span className="text-gray-600 hover:text-gray-800 transition font-semibold cursor-pointer">
                             <Link href={`/lesson/${course.language}/${course.currentLesson}`}>
@@ -100,8 +84,6 @@ const CourseCard = ({ course }: Props) => {
                                 Rozpocznij lekcję
                               </button>
                             </Link>
-                            {course.lessons[course.currentLesson + 1]?.lesson
-                              .title && "Brak więcej lekcji 😢"}
                           </span>
                         </div>
                       ) : (
