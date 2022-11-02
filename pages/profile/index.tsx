@@ -5,15 +5,18 @@ import { ReactElement, ReactNode } from "react";
 import { FaEdit } from "react-icons/fa";
 import Layout from "../../components/layout";
 import useAuth from "../../hooks/useAuth";
-import { NextPageWithLayout } from ".././_app";
-import { MdDone,MdCalendarToday } from "react-icons/md";
+import { NextPageWithLayout } from "../_app";
+import { MdDone,MdCalendarToday, MdBolt, MdOutlineShowChart } from "react-icons/md";
 import { UserStats } from "../../components/userStats";
+import ProfileCourses from "../../components/profileCourses";
 
 
 
 const icons: Record<string, ReactNode> = {
   coursesDone: <MdDone />,
   daysInRow: <MdCalendarToday />,
+  correctAnswers: <MdBolt />,
+  classification:<MdOutlineShowChart />
 };
 
 const Page: NextPageWithLayout = () => {
@@ -26,6 +29,8 @@ const Page: NextPageWithLayout = () => {
 
   }
 
+
+
   return (
     <>
       <Head>
@@ -37,9 +42,9 @@ const Page: NextPageWithLayout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {isLoggedIn ? (
-        <main className="flex justify-start items-start min-h-screen pt-28 ">
+        <main className="flex min-h-screen pt-28 ">
           <div>
-            <div className="flex flex-col w-screen ">
+            <div className="flex flex-col w-screen">
               <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center md:justify-center lg:justify-start xl:justify-start w-full bg-gray-main px-6 py-12">
                 <div>
                   <Image
@@ -50,16 +55,22 @@ const Page: NextPageWithLayout = () => {
                     className="rounded-full border-gray-second border-4"
                   />
                 </div>
-                <div className="text-3xl text-white">
+                <div className="flex flex-col xl:ml-6">
+                <span className="text-3xl text-white ">
                   Cześć, {user?.displayName.split(" ")[0]}!
+                </span>
+                <span className="text-gray-third text-xl">
+                  {user?.city}, {user?.country}
+                </span>
                 </div>
-                <div className="grid grid-rows-2 grid-flow-col">
-                  <UserStats value={3} description="Skończone kursy" icon={icons["coursesDone"]} iconColor="green-done"></UserStats>
-                  <UserStats value={37} description="Dni nauki pod rząd" icon={icons["daysInRow"]} iconColor="green-done"></UserStats>
-                  <UserStats value={37} description="Dni nauki pod rząd" icon={icons["daysInRow"]} iconColor="green-done"></UserStats>
-                  <UserStats value={37} description="Dni nauki pod rząd" icon={icons["daysInRow"]} iconColor="green-done"></UserStats>
+                <div className="grid grid-rows-2 grid-flow-col xl:ml-24">
+                  <UserStats value={3} description="Skończone kursy" icon={icons["coursesDone"]} iconColor="icons-done"></UserStats>
+                  <UserStats value={37} description="Dni nauki pod rząd" icon={icons["daysInRow"]} iconColor="icons-days"></UserStats>
+                  <UserStats value={97} description="Poprawnych odpowiedzi" icon={icons["correctAnswers"]} iconColor="icons-answers"></UserStats>
+                  <UserStats value={27} description="Miejsce w rankingu" icon={icons["classification"]} iconColor="icons-rank"></UserStats>
                 </div>
               </div>
+               <ProfileCourses></ProfileCourses>
             </div>
           </div>
         </main>

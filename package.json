@@ -17,10 +17,12 @@
     "@stitches/react": "^1.2.8",
     "@types/showdown": "^2.0.0",
     "ace-builds": "^1.12.5",
+    "chart.js": "^3.9.1",
     "firebase": "^9.13.0",
     "next": "latest",
     "react": "18.2.0",
     "react-ace": "^10.1.0",
+    "react-chartjs-2": "^4.3.1",
     "react-dom": "18.2.0",
     "react-icons": "^4.6.0",
     "showdown": "^2.1.0"

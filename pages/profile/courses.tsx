@@ -8,7 +8,7 @@ import Loading from "../../components/loading";
 import { courses } from "../../constants";
 import useAuth from "../../hooks/useAuth";
 import { UnCertainCourse } from "../../types/course";
-import { NextPageWithLayout } from "./../_app";
+import { NextPageWithLayout } from "../_app";
 
 const Page: NextPageWithLayout = () => {
   const [userCourses, setUserCourses] = useState<UnCertainCourse[]>([]);
@@ -71,6 +71,7 @@ const Page: NextPageWithLayout = () => {
               <Course course={course} />
             ))}
           </div>
+          
         )}
       </main>
     </>

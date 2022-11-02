@@ -48,8 +48,11 @@ module.exports = {
         "800": "#C81E1E",
         "900": "#A91C1C"
       },
-      "green":{
-        "done":"#138808",
+      "icons":{
+        "done":"#32D583",
+        "rank":"#F04438",
+        "days":"#7A5AF8",
+        "answers":"#FEC84B"
       }
     }
   },

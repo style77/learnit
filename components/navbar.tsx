@@ -36,7 +36,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white/80 px-2 sm:px-4 py-4 xl:py-0 fixed w-full z-20 top-0 left-0 border-b border-gray-200 ">
+      <nav className="bg-gray-main px-2 sm:px-4 py-4 xl:py-0 fixed w-full z-20 top-0 left-0 border-b border-gray-third border-b-2">
         <div className="container flex flex-wrap justify-between items-center mx-auto">
           <a href="/" className="flex items-center">
             <img
@@ -167,8 +167,18 @@ export const Navbar = () => {
                   href="/courses"
                   activeClassName="bg-blue-700 text-white hover:text-gray-800 transition md:bg-transparent md:text-blue-700 md:p-0"
                 >
-                  <span className="block font-normal py-2 pr-4 pl-3 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
-                    Kursy
+                  <span className="block font-normal py-2 pr-4 pl-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
+                    KURSY
+                  </span>
+                </NavLink>
+              </li>
+              <li onClick={() => toggleDropdown()}>
+                <NavLink
+                  href="/profile"
+                  activeClassName="bg-blue-700 text-white hover:text-gray-800 transition md:bg-transparent md:text-blue-700 md:p-0"
+                >
+                  <span className="block font-normal py-2 pr-4 pl-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
+                    UCZ SIĘ
                   </span>
                 </NavLink>
               </li>
@@ -177,7 +187,7 @@ export const Navbar = () => {
                   href="/faq"
                   activeClassName="bg-blue-700 text-white hover:text-gray-800 transition md:bg-transparent md:text-blue-700 md:p-0"
                 >
-                  <span className="block font-normal py-2 pr-4 pl-3 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
+                  <span className="block font-normal py-2 pr-4 pl-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 transition">
                     FAQ
                   </span>
                 </NavLink>
