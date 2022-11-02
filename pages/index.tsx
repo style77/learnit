@@ -18,6 +18,7 @@ const Page: NextPageWithLayout = () => {
           content="LearnIT - naucz się programowania w praktyce!"
         />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="/index.css" />
       </Head>
       <Loading />
       <main className="flex min-h-screen">

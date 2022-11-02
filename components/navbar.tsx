@@ -40,7 +40,7 @@ export const Navbar = () => {
         <div className="container flex flex-wrap justify-between items-center mx-auto">
           <a href="/" className="flex items-center">
             <img
-              src="/_images/logo_full.svg"
+              src="/_images/logo-calosc.svg"
               className="static lg:absolute h-6 sm:h-9"
               alt="LearnIT logo"
             />
