@@ -19,6 +19,7 @@ module.exports = {
     appId: process.env.appId,
     measurementId: process.env.measurementId,
     apiUrl: process.env.apiUrl,
+    
     jdoodleClientId: process.env.jdoodleClientId,
     jdoodleClientSecret: process.env.jdoodleClientSecret,
   },

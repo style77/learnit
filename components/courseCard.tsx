@@ -23,34 +23,13 @@ const getTimeEpoch = () => {
 };
 
 const StartCourse = ({ course, user }: StartCourseProps) => {
-  const lessons: Lesson[] = [];
-
-  // iterate over lessons count and create Lesson objects then push them to lessons array
-  Array(course.allLessons)
-    .fill(0)
-    .map((_, i) => {
-      lessons.push({
-        title: `Lekcja ${i + 1}`,
-        source: `${course.source}/lessons/${i + 1}`,
-        number: i + 1,
-      });
-    });
-
-  const ilesson: ILesson = {
-    id: getTimeEpoch(),
-    lesson: lessons[0],
-    progress: 0,
-    started: new Date(),
-    completed: null,
-  };
-
   const icourseData: ICourse = {
     currentLesson: 1,
     completed: false,
     courseId: course.id,
+    courseLanguage: course.language,
     id: getTimeEpoch(),
-    lessons: [ilesson],
-    course: course,
+    source: course.source,
     started: new Date(),
   };
 

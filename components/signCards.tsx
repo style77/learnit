@@ -124,7 +124,7 @@ const LoginCard = ({
                   className="text-blue-500 hover:text-blue-700 transition cursor-pointer"
                   onClick={() => setShowForgotPassword(true)}
                 >
-                  Zresetuj hasło
+                  Zapomniałeś hasła?
                 </span>
               </p>
             </div>
@@ -191,7 +191,9 @@ const RegisterCard = ({
   authProvider,
 }: Props) => {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("Polska");
+
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -201,7 +203,10 @@ const RegisterCard = ({
       uid: user.uid,
       displayName: user.displayName || name,
       photoURL: user.photoURL || "",
-      courses: []
+      courses: [],
+      city: city,
+      country: country,
+      levelExperience: 0,
     }).catch((error) => {
       setError(error.message);
     });
@@ -220,13 +225,25 @@ const RegisterCard = ({
         >
           <div className="flex flex-col gap-2">
             <div className="flex flex-col">
-              <label htmlFor="name">Nick</label>
+              <label htmlFor="city">Miasto</label>
               <input
-                id="name"
-                type="name"
-                placeholder="Nick"
+                id="city"
+                type="text"
+                placeholder="Miasto"
                 className="p-2 rounded-lg bg-blue-50 focus:bg-blue-200 border-2 transition"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setCity(e.target.value)}
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="city">Państwo</label>
+              <input
+                id="country"
+                type="text"
+                placeholder="Państwo"
+                className="p-2 rounded-lg bg-blue-50 focus:bg-blue-200 border-2 transition"
+                onChange={(e) => setCountry(e.target.value)}
+                value={country}
                 required
               />
             </div>

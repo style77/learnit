@@ -33,7 +33,7 @@ const Page: NextPageWithLayout = () => {
             <div className="flex flex-col items-center">
               <p className="text-2xl text-gray-800 font-bold">Kim jesteście?</p>
               <p className="text-lg text-gray-600">
-                Grupą uczniów Technikum, którzy chcą pomóc innym w nauce
+                Grupą uczniów technikum, którzy chcą pomóc innym w nauce
                 programowania.
               </p>
             </div>

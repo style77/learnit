@@ -29,19 +29,20 @@ type Props = {
 };
 
 const Editor = ({language, code, setCode}: Props) => {
-
   return (
     <div className="flex flex-col items-center flex-grow h-full">
       <AceEditor
         mode={language === "cpp" || language === "c" ? "c_cpp" : language}
-        fontSize={16}
         value={code}
-        onChange={(e: any) => setCode(e.target.value)}
+        fontSize={14}
+        onChange={(e: any) => {setCode(e)}}
         name={`${language}_editor`}
         style={{
           width: "100%",
           height: "100%",
+          borderRadius: "0.5rem",
         }}
+        theme="dracula"
         editorProps={{ $blockScrolling: true }}
         setOptions={{
           enableBasicAutocompletion: true,

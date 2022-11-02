@@ -1,7 +1,6 @@
 export type ILesson = {
     id: string;
     lesson: Lesson;
-    progress: number;
     started: Date;
     completed: Date | null;
 }

@@ -18,14 +18,23 @@ const Page: NextPageWithLayout = () => {
     if (isLoggedIn && user) {
       let data: any[] = [];
       courses.forEach((course) => {
-        console.log(course)
-        user.courses.map((userCourse) => {
-          if (userCourse.courseId === course.id) {
-            data.push({
-              ...course,
-              ...userCourse,
-            });
-          } else {
+        if (!course.TBA) {
+          user.courses.map((userCourse) => {
+            if (userCourse.courseId === course.id) {
+              data.push({
+                ...course,
+                ...userCourse,
+              });
+            } else {
+              data.push({
+                ...course,
+                currentLesson: 0,
+                completed: false,
+                number: 1,
+              });
+            }
+          });
+          if (!user.courses) {
             data.push({
               ...course,
               currentLesson: 0,
@@ -33,14 +42,6 @@ const Page: NextPageWithLayout = () => {
               number: 1,
             });
           }
-        });
-        if (!user.courses) {
-          data.push({
-            ...course,
-            currentLesson: 0,
-            completed: false,
-            number: 1,
-          });
         }
       });
       setUserCourses(data);

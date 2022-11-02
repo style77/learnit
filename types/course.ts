@@ -18,11 +18,12 @@ export type Course = {
 export type ICourse = {
   id: string;
   courseId: number;
-  course: Course;
+  courseLanguage: string;
   currentLesson: number;
-  lessons: ILesson[];
   started: Date;
+  lessons: ILesson[];
   completed: boolean;
+  source: string;
 };
 
 // we are not sure if user started course, so course is of course constant data + ICourse type OR just constant data + currentLesson set to 0 (to count progress)

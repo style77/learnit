@@ -29,25 +29,37 @@ const languagesMap: Record<string, string[]> = {
 };
 
 export const compile = async (body: any, language: string) => {
-    const [lang, versionIndex] = languagesMap[language];
+  const [lang, versionIndex] = languagesMap[language];
 
-    const inputParams = {
-      ...body,
-      lang,
-      versionIndex,
-      clientId: process.env.JDOODLE_CLIENT_ID,
-      clientSecret: process.env.JDOODLE_CLIENT_SECRET,
-    };
+  const inputParams = {
+    ...JSON.parse(body),
+    language: lang,
+    versionIndex,
+    clientId: process.env.jdoodleClientId,
+    clientSecret: process.env.jdoodleClientSecret,
+  };
 
-    const resp = await fetch("https://api.jdoodle.com/v1/execute", {
-      method: "post",
-      body: JSON.stringify(inputParams),
-      headers: { "Content-type": "application/json" },
-    });
+  console.log(inputParams);
 
-    const data = await resp.json();
-    return data
-}
+  const url =
+    process.env.NODE_ENV === "development"
+      ? "https://cors-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute"
+      : "https://api.jdoodle.com/v1/execute";
+
+  // there are problems with CORS while using development version
+
+  const resp = await fetch(url, {
+    method: "post",
+    body: JSON.stringify(inputParams),
+    headers: {
+      "Content-type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+
+  const data = await resp.json();
+  return data;
+};
 
 export default async function handler(
   req: NextApiRequest,
