@@ -39,8 +39,6 @@ export const compile = async (body: any, language: string) => {
     clientSecret: process.env.jdoodleClientSecret,
   };
 
-  console.log(inputParams);
-
   const url =
     process.env.NODE_ENV === "development"
       ? "https://cors-anywhere.herokuapp.com/https://api.jdoodle.com/v1/execute"
@@ -58,6 +56,7 @@ export const compile = async (body: any, language: string) => {
   });
 
   const data = await resp.json();
+  console.log(data)
   return data;
 };
 

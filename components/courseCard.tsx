@@ -38,8 +38,11 @@ const StartCourse = ({ course, user }: StartCourseProps) => {
 
   updateDoc(user.ref, {
     courses: [...user.courses, icourseData],
+  }).then(() => {
+    window.location.reload();
+  }).catch((err) => {
+    console.log(err);
   });
-  window.location.reload();
 };
 
 const CourseCard = ({ course }: Props) => {
@@ -73,7 +76,7 @@ const CourseCard = ({ course }: Props) => {
                     <>
                       <div className="flex">
                         <span className="text-gray-800 font-mono">
-                          Lekcja {course.currentLesson}{" "}
+                          Lekcja {course.currentLesson}/{course.allLessons}{" "}
                         </span>
                       </div>
                       {course.currentLesson !== 0 ? (
@@ -108,9 +111,9 @@ const CourseCard = ({ course }: Props) => {
                     <div className="flex">
                       <h1 className="font-medium text-gray-800">
                         Postęp{" "}
-                        {((course.started ? course.currentLesson-1 : 0) /
+                        {Math.floor(((course.started ? course.currentLesson-1 : 0) /
                           course.allLessons) *
-                          100}
+                          100)}
                         %
                       </h1>
                     </div>

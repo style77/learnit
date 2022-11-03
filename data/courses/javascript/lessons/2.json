@@ -1,7 +1,7 @@
 {
     "title": "Zmienne",
     "description": "Javascript lekcja 2\n\nZmienne w javascript są bardzo proste. Wystarczy użyć słowa kluczowego **var**, **const**, albo **let**.\n\n**var** - zmienna globalna\n**let** - zmienna lokalna\n**const** - stała\n\n```javascript\nvar a = 1;\nlet b = 2;\nconst c = 3;\n```\n\n",
-    "number": 1,
+    "number": 2,
     "tags": [
         "javascript",
         "js",

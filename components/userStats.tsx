@@ -4,15 +4,14 @@ type Props = {
   value: number;
   description: string;
   icon: ReactNode;
-  iconColor:string
 };
 
-const UserStats = ({ value, description, icon, iconColor }: Props) => {
+const UserStats = ({ value, description, icon }: Props) => {
   return (
     <>
       <div className="w-72 h-24">
         <div className="flex flex-row gap-3">
-          <div className={`flex bg-gray-second rounded-full w-16 h-16 text-white text-4xl justify-center items-center ${"text-"+iconColor}`}>
+          <div className="flex bg-gray-second rounded-full w-16 h-16 text-4xl justify-center items-center">
             {icon}
           </div>
           <div className="flex flex-col font-medium py-1">

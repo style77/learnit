@@ -17,10 +17,10 @@ import ProfileCourses from "../../components/profileCourses";
 import { RiEditBoxLine } from "react-icons/ri";
 
 const icons: Record<string, ReactNode> = {
-  coursesDone: <MdDone />,
-  daysInRow: <MdCalendarToday />,
-  correctAnswers: <MdBolt />,
-  classification: <MdOutlineShowChart />,
+  coursesDone: <MdDone className="text-icons-done" />,
+  daysInRow: <MdCalendarToday className="text-icons-days" />,
+  correctAnswers: <MdBolt className="text-icons-answers" />,
+  classification: <MdOutlineShowChart className="text-icons-rank" />,
 };
 
 const Page: NextPageWithLayout = () => {
@@ -73,30 +73,26 @@ const Page: NextPageWithLayout = () => {
                     value={3}
                     description="Skończone kursy"
                     icon={icons["coursesDone"]}
-                    iconColor="icons-done"
                   ></UserStats>
                   <UserStats
                     value={37}
                     description="Dni nauki pod rząd"
                     icon={icons["daysInRow"]}
-                    iconColor="icons-days"
                   ></UserStats>
                   <UserStats
                     value={97}
                     description="Poprawnych odpowiedzi"
                     icon={icons["correctAnswers"]}
-                    iconColor="icons-answers"
                   ></UserStats>
                   <UserStats
                     value={27}
                     description="Miejsce w rankingu"
                     icon={icons["classification"]}
-                    iconColor="icons-rank"
                   ></UserStats>
                 </div>
               </div>
 
-              <div className="flex w-full">
+              <div className="w-screen">
                 <ProfileCourses></ProfileCourses>
               </div>
             </div>

@@ -130,11 +130,10 @@ const Page: NextPageWithLayout = () => {
         courses: courses,
       }).then(() => {
         console.log("Document successfully updated!");
+        window.location.href = `/profile/courses/`;
       }).catch((error) => {
         console.error("Error updating document: ", error);
       });
-
-      window.location.href = `/profile/courses/`;
     }
   };
 
@@ -149,7 +148,11 @@ const Page: NextPageWithLayout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Loading />
-      {lesson && lessonNumber && user && isLoggedIn && (parseInt(lessonNumber as string) === userCurrentLesson) ? (
+      {lesson &&
+      lessonNumber &&
+      user &&
+      isLoggedIn &&
+      parseInt(lessonNumber as string) === userCurrentLesson ? (
         <main className="flex min-h-screen">
           <div className="flex flex-col xl:flex-row w-full">
             <div className="flex flex-col justify-center w-[80vw] items-start h-full mx-20">
@@ -160,7 +163,7 @@ const Page: NextPageWithLayout = () => {
                 <div
                   className="text-lg font-regular text-start mt-4 px-4"
                   dangerouslySetInnerHTML={{
-                    __html: ConvertMarkdown(lesson.description),
+                    __html: ConvertMarkdown(lessonExamples[exampleNumber]?.description),
                   }}
                 />
               </div>
@@ -205,8 +208,11 @@ const Page: NextPageWithLayout = () => {
                       </>
                     ) : (
                       <button
-                        className="bg-gray-900 hover:bg-gray-800 disabled:hover:bg-gray-900 disabled:hover:cursor-not-allowed transition border-gray-800 text-gray-200 border-2 h-12 py-2 px-4 rounded"
-                        disabled={JSON.parse(output)?.output?.replace("\n", "") != exampleOutput}
+                        className="bg-gray-900 hover:bg-gray-800 disabled:hover:bg-gray-900 disabled:opacity-50 disabled:hover:cursor-not-allowed transition border-gray-800 text-gray-200 border-2 h-12 py-2 px-4 rounded"
+                        disabled={
+                          JSON.parse(output)?.output?.replace("\n", "") !=
+                          exampleOutput
+                        }
                         onClick={() => {
                           lessonFinished();
                         }}

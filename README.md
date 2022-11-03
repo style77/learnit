@@ -4,6 +4,12 @@ A simple, easy to use, and **free** learning platform for everyone.
 ## What is LearnIT?
 LearnIT is a platform that allows everyone to learn coding. It is a free and open source project that is currently in development.
 
+## Disclaimer
+Development version uses `https://cors-anywhere.herokuapp.com/corsdemo` to bypass CORS. This is not a good practice and should not be used in production. This is only for development purposes.
+To get it working you need to open the site and click on button `Request temporary access to the demo server`.
+
+## How to use it?
+
 ## TODO
 - change description of courses in constants.js and add more courses
 - change allowed domains in `next.config.js` to some image proxy like https://cloudinary.com/

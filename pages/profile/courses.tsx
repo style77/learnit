@@ -7,7 +7,8 @@ import Layout from "../../components/layout";
 import Loading from "../../components/loading";
 import { courses } from "../../constants";
 import useAuth from "../../hooks/useAuth";
-import { UnCertainCourse } from "../../types/course";
+import { ICourse, UnCertainCourse } from "../../types/course";
+import { Course as CourseType } from "../../types/course";
 import { NextPageWithLayout } from "../_app";
 
 const Page: NextPageWithLayout = () => {
@@ -16,9 +17,15 @@ const Page: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (isLoggedIn && user) {
+
+      // todo make that simpler :D
+
       let data: any[] = [];
+      const shouldShowCourses: any = [courses.find((c) => !c.TBA)];
+
       courses.forEach((course) => {
         if (course.TBA === false) {
+          
           user.courses.map((userCourse) => {
             if (course.language === userCourse.courseLanguage) {
               if (userCourse.courseId === course.id) {
@@ -37,8 +44,7 @@ const Page: NextPageWithLayout = () => {
             }
           });
 
-          // idk if thats needed
-          if (user.courses.length === 0) {
+          if (!shouldShowCourses.find((c: CourseType) => {c.language == course.language}) && !data.find((c: CourseType) => c.language === course.language)) {
             data.push({
               ...course,
               currentLesson: 0,
