@@ -15,6 +15,7 @@ import {
 import { UserStats } from "../../components/userStats";
 import ProfileCourses from "../../components/profileCourses";
 import { RiEditBoxLine } from "react-icons/ri";
+import Loading from "../../components/loading";
 
 const icons: Record<string, ReactNode> = {
   coursesDone: <MdDone className="text-icons-done" />,
@@ -39,6 +40,7 @@ const Page: NextPageWithLayout = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Loading />
       {isLoggedIn ? (
         <main className="flex min-h-screen pt-24 ">
           <div>
