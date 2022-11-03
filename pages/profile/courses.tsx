@@ -20,21 +20,24 @@ const Page: NextPageWithLayout = () => {
       courses.forEach((course) => {
         if (course.TBA === false) {
           user.courses.map((userCourse) => {
-            if (userCourse.courseId === course.id) {
-              data.push({
-                ...course,
-                ...userCourse,
-              });
-            } else {
-              data.push({
-                ...course,
-                currentLesson: 0,
-                completed: false,
-                number: 1,
-              });
+            if (course.language === userCourse.courseLanguage) {
+              if (userCourse.courseId === course.id) {
+                data.push({
+                  ...course,
+                  ...userCourse,
+                });
+              } else {
+                data.push({
+                  ...course,
+                  currentLesson: 0,
+                  completed: false,
+                  number: 1,
+                });
+              }
             }
           });
 
+          // idk if thats needed
           if (user.courses.length === 0) {
             data.push({
               ...course,
@@ -73,7 +76,6 @@ const Page: NextPageWithLayout = () => {
               <Course course={course} />
             ))}
           </div>
-          
         )}
       </main>
     </>
