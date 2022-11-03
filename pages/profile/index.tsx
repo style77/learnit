@@ -42,8 +42,8 @@ const Page: NextPageWithLayout = () => {
       {isLoggedIn ? (
         <main className="flex min-h-screen pt-24 ">
           <div>
-            <div className="flex flex-col w-screen">
-              <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center md:justify-center lg:justify-start xl:justify-start w-full bg-gray-main px-6 py-2 xl:py-12">
+            <div className="flex flex-col w-full">
+              <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-center md:justify-center lg:justify-start xl:justify-start bg-gray-main px-6 py-2 xl:py-12">
                 <div>
                   <Image
                     src={user?.photoURL as string}
@@ -53,16 +53,22 @@ const Page: NextPageWithLayout = () => {
                     className="rounded-full border-gray-second border-4"
                   />
                 </div>
-                <div className="flex flex-col xl:ml-6">
+                <div className="flex flex-col xl:mx-6">
                   <span className="text-3xl text-white ">
                     Cześć, {user?.displayName.split(" ")[0]}!
                   </span>
-                  <span className="text-gray-third text-xl">
-                    {user?.city}, {user?.country}
-                  </span>
+                  
+                    {user?.city && user?.country ? (
+                      <span className="text-gray-third text-xl">
+                      {user?.city}, {user?.country}
+                      </span>
+                    ): (
+                      <span className="text-gray-third text-xl">Brak informacji o pochodzeniu</span>
+                    )}
+                  
                 </div>
 
-                <div className="flex flex-col xl:grid xl:grid-rows-2 xl:grid-flow-col my-6 xl:my-0 xl:ml-24">
+                <div className="flex flex-col xl:grid xl:grid-rows-2 xl:grid-flow-col my-6 xl:my-0 xl:mx-24">
                   <UserStats
                     value={3}
                     description="Skończone kursy"
@@ -90,7 +96,9 @@ const Page: NextPageWithLayout = () => {
                 </div>
               </div>
 
-              <ProfileCourses></ProfileCourses>
+              <div className="flex w-full">
+                <ProfileCourses></ProfileCourses>
+              </div>
             </div>
           </div>
         </main>

@@ -50,7 +50,7 @@ const CourseCard = ({ course }: Props) => {
     <>
       {isLoggedIn && (
         <>
-          <div className="bg-gray-100/80 rounded-md">
+          <div className="bg-gray-100/80 rounded-md w-full xl:w-1/3 h-1/4">
             <div className="flex flex-col gap-4">
               <div className="flex flex-row p-4 items-center justify-start ml-4">
                 <Image
@@ -80,14 +80,14 @@ const CourseCard = ({ course }: Props) => {
                         <div className="flex">
                           <span className="text-gray-600 hover:text-gray-800 transition font-semibold cursor-pointer">
                             <Link href={`/lesson/${course.language}/${course.currentLesson}`}>
-                              <button className="text-gray-200 font-regular bg-blue-600 px-2 py-2 shadow-md rounded-md transition hover:bg-blue-800">
+                              <button className="text-gray-200 font-regular bg-blue-600 px-2 py-2 shadow-md rounded-md transition hover:bg-blue-800 ">
                                 Rozpocznij lekcję
                               </button>
                             </Link>
                           </span>
                         </div>
                       ) : (
-                        <div className="flex">
+                        <div className="flex ">
                           {user && (
                             <StartCourseDialog
                               title={course.title}
